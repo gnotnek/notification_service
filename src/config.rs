@@ -8,6 +8,8 @@ pub struct AppConfig {
     pub rabbitmq_url: String,
     pub outbox_batch_size: i64,
     pub publisher_interval: Duration,
+    pub resend_api_key: String,
+    pub resend_from_email: String,
 }
 
 impl AppConfig {
@@ -36,12 +38,18 @@ impl AppConfig {
             .and_then(|value| value.parse().ok())
             .unwrap_or(1_000);
 
+        let resend_api_key = env::var("RESEND_API_KEY").unwrap_or_default();
+
+        let resend_from_email = env::var("RESEND_FROM_EMAIL").unwrap_or_default();
+
         Ok(Self {
             http_addr,
             database_url,
             rabbitmq_url,
             outbox_batch_size,
             publisher_interval: Duration::from_millis(publisher_interval_ms),
+            resend_api_key,
+            resend_from_email,
         })
     }
 }

@@ -18,6 +18,8 @@ pub enum AppError {
     RabbitMq(#[from] lapin::Error),
     #[error("serialization error: {0}")]
     Serde(#[from] serde_json::Error),
+    #[error("provider error: {0}")]
+    Provider(String),
     #[error("internal error: {0}")]
     Internal(String),
 }
@@ -32,6 +34,7 @@ impl IntoResponse for AppError {
             | Self::Database(_)
             | Self::RabbitMq(_)
             | Self::Serde(_)
+            | Self::Provider(_)
             | Self::Internal(_) => StatusCode::INTERNAL_SERVER_ERROR,
         };
 

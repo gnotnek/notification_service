@@ -52,9 +52,13 @@ pub async fn run() -> AppResult<()> {
 
     let notification_worker_repository: Arc<dyn NotificationRepository> =
         notification_repository.clone();
-    Arc::new(NotificationWorker::new(notification_worker_repository))
-        .run_all(config.rabbitmq_url.clone())
-        .await?;
+    Arc::new(NotificationWorker::new(
+        notification_worker_repository,
+        &config.resend_api_key,
+        &config.resend_from_email,
+    )?)
+    .run_all(config.rabbitmq_url.clone())
+    .await?;
 
     let notification_service_repository: Arc<dyn NotificationRepository> = notification_repository;
     let notification_service = Arc::new(NotificationService::new(notification_service_repository));

@@ -82,9 +82,10 @@ the RabbitMQ message.
 
 ### Providers
 
-The current providers are mocks:
+Email uses Resend through the `resend-rs` client. The other providers are
+currently mocks:
 
-- `MockEmailSender`
+- `ResendEmailSender`
 - `MockWhatsappSender`
 - `MockPushSender`
 - `MockInAppSender`
@@ -110,4 +111,3 @@ attempts and final status updates.
   authentication, and response mapping are not implemented yet.
 - Only email, WhatsApp, and push have dead-letter queues because that was the
   requested queue design.
-

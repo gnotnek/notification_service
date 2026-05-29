@@ -131,4 +131,5 @@ local development.
 | `OUTBOX_BATCH_SIZE` | `25` | Number of outbox rows claimed per publisher loop. |
 | `PUBLISHER_INTERVAL_MS` | `1000` | Sleep duration between publisher loops. |
 | `RUST_LOG` | `notification_service=info` | Log filtering for `tracing`. |
-
+| `RESEND_API_KEY` | none | Required for the email worker. |
+| `RESEND_FROM_EMAIL` | none | Required sender address for Resend, for example `Notification Service <notifications@example.com>`. |

@@ -19,6 +19,7 @@ tracing = "0.1"
 tracing-subscriber = { version = "0.3", features = ["json", "env-filter"] }
 async-trait = "0.1"
 futures-lite = "2"
+resend-rs = "0.25.1"
 
 [package.metadata.coverage]
 unit-test-command = "cargo llvm-cov --summary-only --ignore-filename-regex '(^|/)(tests/|src/(app|main|config)\\.rs|src/infrastructure/(postgres|rabbitmq)/|src/interface/worker/|src/application/service/outbox_publisher\\.rs|src/shared/logger\\.rs)' --fail-under-lines 90"

@@ -9,7 +9,7 @@ use crate::{
     domain::notification_channel::NotificationChannel,
     infrastructure::{
         provider::{
-            email_sender::MockEmailSender, in_app_sender::MockInAppSender,
+            email_sender::ResendEmailSender, in_app_sender::MockInAppSender,
             push_sender::MockPushSender, whatsapp_sender::MockWhatsappSender,
         },
         rabbitmq::consumer::RabbitMqConsumer,
@@ -42,14 +42,18 @@ pub enum WorkerProcessOutcome {
 }
 
 impl NotificationWorker {
-    pub fn new(repository: Arc<dyn NotificationRepository>) -> Self {
-        Self {
+    pub fn new(
+        repository: Arc<dyn NotificationRepository>,
+        resend_api_key: &str,
+        resend_from_email: &str,
+    ) -> AppResult<Self> {
+        Ok(Self {
             repository,
-            email_sender: Arc::new(MockEmailSender),
+            email_sender: Arc::new(ResendEmailSender::new(resend_api_key, resend_from_email)?),
             whatsapp_sender: Arc::new(MockWhatsappSender),
             push_sender: Arc::new(MockPushSender),
             in_app_sender: Arc::new(MockInAppSender),
-        }
+        })
     }
 
     pub fn with_senders(

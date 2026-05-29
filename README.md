@@ -35,6 +35,8 @@ HTTP_ADDR=127.0.0.1:3000
 OUTBOX_BATCH_SIZE=25
 PUBLISHER_INTERVAL_MS=1000
 RUST_LOG=notification_service=info
+RESEND_API_KEY=re_your_api_key_here
+RESEND_FROM_EMAIL="Notification Service <notifications@example.com>"
 ```
 
 ## Run
